@@ -9,6 +9,10 @@ const btnCloseModal = document.querySelector(".btn--close-modal");
 const btnsOpenModal = document.querySelectorAll(".btn--show-modal");
 const scrollTo = document.querySelector(".btn--scroll-to");
 const section1 = document.querySelector("#section--1");
+const tabContainer = document.querySelector(".operations__tab-container");
+const allTabs = document.querySelectorAll(".operations__tab");
+const allContents = document.querySelectorAll(".operations__content");
+const nav = document.querySelector(".nav");
 
 ///////////////////////////////////////
 
@@ -83,10 +87,6 @@ document.querySelector(".nav__links").addEventListener("click", function (e) {
 
 //Tabbed componunt
 
-const tabContainer = document.querySelector(".operations__tab-container");
-const allTabs = document.querySelectorAll(".operations__tab");
-const allContents = document.querySelectorAll(".operations__content");
-
 tabContainer.addEventListener("click", function (e) {
   const clicked = e.target.closest(".operations__tab");
   if (!clicked) return;
@@ -101,6 +101,25 @@ tabContainer.addEventListener("click", function (e) {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add("operations__content--active");
 });
+
+////////////////////////////////////////////////////
+
+const handleMouse = function (e) {
+  if (e.target.classList.contains("nav__link")) {
+    const link = e.target;
+    // const parent = link.closest("nav");
+    const siblings = link.closest(".nav").querySelectorAll(".nav__link");
+    const img = link.closest(".nav").querySelector(".nav__logo");
+    siblings.forEach((sibling) => {
+      if (sibling !== link) sibling.style.opacity = this;
+    });
+    img.style.opacity = this;
+  }
+};
+
+nav.addEventListener("mouseover", handleMouse.bind("0.5"));
+
+nav.addEventListener("mouseout", handleMouse.bind("1"));
 
 ////////////////////////////////////////////////////
 
