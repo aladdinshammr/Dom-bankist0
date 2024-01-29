@@ -259,3 +259,21 @@ const managSlide = function () {
 };
 
 managSlide();
+
+////////////////////////////////////////////////////
+
+document.addEventListener("DOMContentLoaded", function (e) {
+  console.log("Dom loaded");
+  console.log(e);
+});
+
+window.addEventListener("load", function (e) {
+  console.log("Page is loaded");
+  console.log(e);
+});
+
+// window.addEventListener("beforeunload", function (e) {
+//   e.preventDefault();
+//   console.log(e);
+//   e.returnValue = "Message";
+// });
