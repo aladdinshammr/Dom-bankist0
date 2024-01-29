@@ -147,6 +147,26 @@ const oberver = new IntersectionObserver(navBarObserver, {
 oberver.observe(header);
 
 ////////////////////////////////////////////////////
+
+const sections = document.querySelectorAll(".section");
+
+const observeSection = function (entries, oberver) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove("section--hidden");
+};
+
+const sectionObserver = new IntersectionObserver(observeSection, {
+  root: null,
+  threshold: 0.2,
+});
+
+sections.forEach((section) => {
+  sectionObserver.observe(section);
+  section.classList.add("section--hidden");
+});
+
+////////////////////////////////////////////////////
 const randomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);
 
