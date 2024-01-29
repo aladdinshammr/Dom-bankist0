@@ -154,6 +154,7 @@ const observeSection = function (entries, oberver) {
   const [entry] = entries;
   if (!entry.isIntersecting) return;
   entry.target.classList.remove("section--hidden");
+  oberver.unobserve(entry.target);
 };
 
 const sectionObserver = new IntersectionObserver(observeSection, {
@@ -166,6 +167,25 @@ sections.forEach((section) => {
   section.classList.add("section--hidden");
 });
 
+////////////////////////////////////////////////////
+// Lazy load imgs
+const imgs = document.querySelectorAll("img[data-src]");
+
+const lazyLoad = function (entries, oberver) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+  entry.target.src = entry.target.dataset.src;
+  entry.target.addEventListener("load", function () {
+    entry.target.classList.remove("lazy-img");
+  });
+  oberver.unobserve(entry.target);
+};
+const imgObserver = new IntersectionObserver(lazyLoad, {
+  root: null,
+  threshold: 0,
+});
+
+imgs.forEach((img) => imgObserver.observe(img));
 ////////////////////////////////////////////////////
 const randomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);
