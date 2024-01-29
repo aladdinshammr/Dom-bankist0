@@ -13,6 +13,7 @@ const tabContainer = document.querySelector(".operations__tab-container");
 const allTabs = document.querySelectorAll(".operations__tab");
 const allContents = document.querySelectorAll(".operations__content");
 const nav = document.querySelector(".nav");
+const header = document.querySelector(".header");
 
 ///////////////////////////////////////
 
@@ -122,7 +123,30 @@ nav.addEventListener("mouseover", handleMouse.bind("0.5"));
 nav.addEventListener("mouseout", handleMouse.bind("1"));
 
 ////////////////////////////////////////////////////
+// const obsCallBack = function (entries, observer) {
+//   entries.forEach((entry) => console.log(entry));
+// };
+// const obsOpts = { root: null, threshold: 0.1 };
 
+// const observer = new IntersectionObserver(obsCallBack, obsOpts);
+// observer.observe(section1);
+
+const navHeight = nav.getBoundingClientRect().height;
+
+const navBarObserver = function (entries) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) nav.classList.add("sticky");
+  else nav.classList.remove("sticky");
+};
+
+const oberver = new IntersectionObserver(navBarObserver, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+});
+oberver.observe(header);
+
+////////////////////////////////////////////////////
 const randomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);
 
